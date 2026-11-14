@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Customer Churn</title>
+    </head>
+
+    <body>
+
+        <h1>Harini Shree S (26014130)</h1>
+        <h2>Customer Churn Rate Calculator</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label>Lost Customers:</label>
+            <input type="number" step="any"
+                   value="{{ Lost_Customers }}"
+                   name="LostCust">
+
+            <br><br>
+
+            <label>Starting Customers:</label>
+            <input type="number" step="any"
+                   value="{{ Starting_Customers }}"
+                   name="StartCust">
+
+            <br><br>
+
+            <button type="submit">Calculate Churn</button>
+
+            <br><br>
+
+            <label>Calculated Churn Rate:</label>
+            <input type="number" step="any"
+                   value="{{ Churn_Percentage }}"
+                   readonly>
+
+        </form>
+
+    </body>
+</html>
