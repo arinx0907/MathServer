@@ -42,12 +42,95 @@ Render the result to the HTML template.
 Publish the website in Localhost.
 
 ## PROGRAM:
+calc.html
+```
+<html>
+    <head>
+        <title>Customer Churn</title>
+    </head>
 
+    <body>
+
+        <h1>Harini Shree S (26014130)</h1>
+        <h2>Customer Churn Rate Calculator</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label>Lost Customers:</label>
+            <input type="number" step="any"
+                   value="{{ Lost_Customers }}"
+                   name="LostCust">
+
+            <br><br>
+
+            <label>Starting Customers:</label>
+            <input type="number" step="any"
+                   value="{{ Starting_Customers }}"
+                   name="StartCust">
+
+            <br><br>
+
+            <button type="submit">Calculate Churn</button>
+
+            <br><br>
+
+            <label>Calculated Churn Rate:</label>
+            <input type="number" step="any"
+                   value="{{ Churn_Percentage }}"
+                   readonly>
+
+        </form>
+
+    </body>
+</html>
+```
+views.py
+```
+from django.shortcuts import render
+
+
+def churn_calculator(request):
+
+    Lost_Customers = float(request.POST.get('LostCust', '0') or '0')
+    Starting_Customers = float(request.POST.get('StartCust', '0') or '0')
+
+    if request.method == 'POST' and Starting_Customers != 0:
+        Churn_Percentage = (Lost_Customers / Starting_Customers) * 100
+    else:
+        Churn_Percentage = 0
+
+    print("Lost Customers =", Lost_Customers)
+    print("Starting Customers =", Starting_Customers)
+    print("Churn Percentage =", Churn_Percentage)
+
+    return render(
+        request,
+        'myapp/calc.html',
+        {
+            'Lost_Customers': Lost_Customers,
+            'Starting_Customers': Starting_Customers,
+            'Churn_Percentage': Churn_Percentage
+        }
+    )
+```
+urls.py
+```
+from django.contrib import admin
+from django.urls import path
+from myapp import views
+
+urlpatterns = [
+    path('', views.churn_calculator, name='customer_churn'),
+]
+```
 
 ## OUTPUT - SERVER SIDE:
+<img width="1920" height="1080" alt="Screenshot (48)" src="https://github.com/user-attachments/assets/7f8c5d3b-8b51-481f-9769-9e17bbf818c9" />
 
 
 ## OUTPUT - WEBPAGE:
+<img width="1920" height="1080" alt="Screenshot (47)" src="https://github.com/user-attachments/assets/96b4c5c6-d51a-4b78-930b-9e0637b18f69" />
 
 
 ## RESULT:
