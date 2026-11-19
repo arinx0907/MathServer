@@ -1,5 +1,5 @@
 # Ex.03 Design a Website for Server Side Processing
-## Date:14/11/2026
+## Date: 19/11/2026
 
 ## AIM:
 To create a web page to calculate Churn Rate using server-side scripts.
@@ -42,8 +42,8 @@ Render the result to the HTML template.
 Publish the website in Localhost.
 
 ## PROGRAM:
-calc.html
 ```
+calc.html
 <html>
     <head>
         <title>Customer Churn</title>
@@ -58,15 +58,15 @@ calc.html
             {% csrf_token %}
 
             <label>Lost Customers:</label>
-            <input type="number" step="any"
-                   value="{{ Lost_Customers }}"
+            <input type="number"
+                   value="{{ LostCus }}"
                    name="LostCust">
 
             <br><br>
 
             <label>Starting Customers:</label>
-            <input type="number" step="any"
-                   value="{{ Starting_Customers }}"
+            <input type="number"
+                   value="{{ StartCus }}"
                    name="StartCust">
 
             <br><br>
@@ -76,60 +76,60 @@ calc.html
             <br><br>
 
             <label>Calculated Churn Rate:</label>
-            <input type="number" step="any"
-                   value="{{ Churn_Percentage }}"
-                   readonly>
+            <input type="number"
+                   value="{{ Churn }}"
+                   >
 
         </form>
 
     </body>
 </html>
+
+```
 ```
 views.py
-```
 from django.shortcuts import render
 
 
-def churn_calculator(request):
+def churncalculator(request):
 
-    Lost_Customers = float(request.POST.get('LostCust', '0') or '0')
-    Starting_Customers = float(request.POST.get('StartCust', '0') or '0')
+    LostCus = float(request.POST.get('LostCust', '0') or '0')
+    StartCus = float(request.POST.get('StartCust', '0') or '0')
 
-    if request.method == 'POST' and Starting_Customers != 0:
-        Churn_Percentage = (Lost_Customers / Starting_Customers) * 100
+    if request.method == 'POST' and StartCus != 0:
+        Churn= (LostCus / StartCus) * 100
     else:
-        Churn_Percentage = 0
+        Churn = 0
 
-    print("Lost Customers =", Lost_Customers)
-    print("Starting Customers =", Starting_Customers)
-    print("Churn Percentage =", Churn_Percentage)
+    print("Lost Customers =", LostCus)
+    print("Starting Customers =", StartCus)
+    print("Churn Percentage =", Churn)
 
     return render(
         request,
         'myapp/calc.html',
         {
-            'Lost_Customers': Lost_Customers,
-            'Starting_Customers': Starting_Customers,
-            'Churn_Percentage': Churn_Percentage
+            'LostCus': LostCus,
+            'StartCus': StartCus,
+            'Churn': Churn
         }
     )
 ```
-urls.py
 ```
+urls.py
 from django.contrib import admin
 from django.urls import path
 from myapp import views
 
 urlpatterns = [
-    path('', views.churn_calculator, name='customer_churn'),
+    path('', views.churncalculator, name='customer_churn'),
 ]
 ```
-
 ## OUTPUT - SERVER SIDE:
+![alt text](<Screenshot (56).png>)
 
-![alt text](<Screenshot (48).png>)
 ## OUTPUT - WEBPAGE:
+![alt text](<Screenshot (55).png>)
 
-![alt text](<Screenshot (47).png>)
 ## RESULT:
 The the web page to calculate Churn Rate using server-side scripts is created successfully.

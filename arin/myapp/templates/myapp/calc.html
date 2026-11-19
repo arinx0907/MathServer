@@ -12,15 +12,15 @@
             {% csrf_token %}
 
             <label>Lost Customers:</label>
-            <input type="number" step="any"
-                   value="{{ Lost_Customers }}"
+            <input type="number"
+                   value="{{ LostCus }}"
                    name="LostCust">
 
             <br><br>
 
             <label>Starting Customers:</label>
-            <input type="number" step="any"
-                   value="{{ Starting_Customers }}"
+            <input type="number"
+                   value="{{ StartCus }}"
                    name="StartCust">
 
             <br><br>
@@ -30,9 +30,9 @@
             <br><br>
 
             <label>Calculated Churn Rate:</label>
-            <input type="number" step="any"
-                   value="{{ Churn_Percentage }}"
-                   readonly>
+            <input type="number"
+                   value="{{ Churn }}"
+                   >
 
         </form>
 

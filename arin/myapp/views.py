@@ -1,26 +1,26 @@
 from django.shortcuts import render
 
 
-def churn_calculator(request):
+def churncalculator(request):
 
-    Lost_Customers = float(request.POST.get('LostCust', '0') or '0')
-    Starting_Customers = float(request.POST.get('StartCust', '0') or '0')
+    LostCus = float(request.POST.get('LostCust', '0') or '0')
+    StartCus = float(request.POST.get('StartCust', '0') or '0')
 
-    if request.method == 'POST' and Starting_Customers != 0:
-        Churn_Percentage = (Lost_Customers / Starting_Customers) * 100
+    if request.method == 'POST' and StartCus != 0:
+        Churn= (LostCus / StartCus) * 100
     else:
-        Churn_Percentage = 0
+        Churn = 0
 
-    print("Lost Customers =", Lost_Customers)
-    print("Starting Customers =", Starting_Customers)
-    print("Churn Percentage =", Churn_Percentage)
+    print("Lost Customers =", LostCus)
+    print("Starting Customers =", StartCus)
+    print("Churn Percentage =", Churn)
 
     return render(
         request,
         'myapp/calc.html',
         {
-            'Lost_Customers': Lost_Customers,
-            'Starting_Customers': Starting_Customers,
-            'Churn_Percentage': Churn_Percentage
+            'LostCus': LostCus,
+            'StartCus': StartCus,
+            'Churn': Churn
         }
     )
