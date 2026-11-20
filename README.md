@@ -119,7 +119,7 @@ from django.urls import path
 from myapp import views
 
 urlpatterns = [
-    path('', views.churncalculator, name='customer_churn'),
+    path('', views.churncalculator, name='churncalculator'),
 ]
 ```
 ## OUTPUT - SERVER SIDE:
